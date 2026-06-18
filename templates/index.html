@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción de Precio de Casas</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #dfe9f3, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 6px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 14px;
+            background: #2c7be5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1a5fb4;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            background: #e8f5e9;
+            color: #1b5e20;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .error {
+            margin-top: 25px;
+            background: #ffebee;
+            color: #b71c1c;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @media (max-width: 650px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor">
+        <h1>Predicción de Precio de Casas</h1>
+        <p>Ingresa los datos de la vivienda para estimar su precio.</p>
+
+        <form method="POST">
+            <div class="campo">
+                <label for="LotArea">Área del lote</label>
+                <input type="number" step="any" name="LotArea" id="LotArea" required>
+            </div>
+
+            <div class="campo">
+                <label for="OverallQual">Calidad general</label>
+                <input type="number" step="any" name="OverallQual" id="OverallQual" min="1" max="10" required>
+            </div>
+
+            <div class="campo">
+                <label for="BsmtFinSF1">Área terminada del sótano</label>
+                <input type="number" step="any" name="BsmtFinSF1" id="BsmtFinSF1" required>
+            </div>
+
+            <div class="campo">
+                <label for="TotalBsmtSF">Área total del sótano</label>
+                <input type="number" step="any" name="TotalBsmtSF" id="TotalBsmtSF" required>
+            </div>
+
+            <div class="campo">
+                <label for="FirstFlrSF">Área del primer piso</label>
+                <input type="number" step="any" name="FirstFlrSF" id="FirstFlrSF" required>
+            </div>
+
+            <div class="campo">
+                <label for="SecondFlrSF">Área del segundo piso</label>
+                <input type="number" step="any" name="SecondFlrSF" id="SecondFlrSF" required>
+            </div>
+
+            <div class="campo">
+                <label for="GrLivArea">Área habitable</label>
+                <input type="number" step="any" name="GrLivArea" id="GrLivArea" required>
+            </div>
+
+            <div class="campo">
+                <label for="GarageCars">Capacidad del garaje</label>
+                <input type="number" step="any" name="GarageCars" id="GarageCars" required>
+            </div>
+
+            <div class="campo">
+                <label for="GarageArea">Área del garaje</label>
+                <input type="number" step="any" name="GarageArea" id="GarageArea" required>
+            </div>
+
+            <button type="submit">Predecir precio</button>
+        </form>
+
+        {% if prediccion %}
+            <div class="resultado">
+                Precio estimado: {{ prediccion }}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
